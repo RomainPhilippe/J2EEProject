@@ -36,14 +36,4 @@ public class NotificationRESTController
          
         return employees;
     }
-     //http://localhost:8080/SpringMVC/employees
-    @RequestMapping(value = "/employees/{id}")
-    public ResponseEntity<UserBean> getEmployeeById (@PathVariable("id") int id)
-    {
-        if (id <= 3) {
-        	UserBean employees = new UserBean("e",String.valueOf(id));
-            return new ResponseEntity<UserBean>(employees, HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-    }
 }
