@@ -1,13 +1,15 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import model.Area;
 import model.Student;
+import model.User;
 
-	public interface AreaDao {
+	public interface UserDao {
 	   /** 
 	    * This is the method to be used to initialize
 	    * database resources ie. connection.
@@ -15,12 +17,13 @@ import model.Student;
 	   public void setDataSource(DataSource ds);
 	   /** 
 	    * This is the method to be used to create
-	    * a record in the Area table.
+	    * a record in the User table.
 	    */
-	   public void create(Integer id_user,String name_area,String label_area, Double latitude, Double longitude, Double rayon);
+	   public void createUser(String mail,String password,Date date, String token);
 	   /** 
 	    * This is the method to be used to list down
-	    * all the records from the Area table.
+	    * a record from the Student table corresponding
+	    * to a passed user token.
 	    */
-	   public List<Area> listAreaByIdUser(Integer id_user);
+	   public User getUser(String token);
 }

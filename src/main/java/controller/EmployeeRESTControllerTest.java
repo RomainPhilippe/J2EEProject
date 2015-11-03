@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dao.AreaJDBCTemplate;
-import model.UserBean;
+import model.User;
 
 @RestController
 public class EmployeeRESTControllerTest
@@ -34,9 +35,9 @@ public class EmployeeRESTControllerTest
 	 
 	 
     @RequestMapping(value = "/employees")
-    public UserBean getAllEmployees() throws ClassNotFoundException, SQLException
+    public User getAllEmployees() throws ClassNotFoundException, SQLException
     {
-    	UserBean employees = new UserBean("e","e");
+    	User employees = new User(new Integer(2),"e","ded", new Date(),"ffe");
     	
     	//creation area en local
     	 ApplicationContext context = 
@@ -64,13 +65,13 @@ public class EmployeeRESTControllerTest
         return employees;
     }
      //http://localhost:8080/SpringMVC/employees
-    @RequestMapping(value = "/employees/{id}")
-    public ResponseEntity<UserBean> getEmployeeById (@PathVariable("id") int id)
-    {
-        if (id <= 3) {
-        	UserBean employees = new UserBean("e",String.valueOf(id));
-            return new ResponseEntity<UserBean>(employees, HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-    }
+//    @RequestMapping(value = "/employees/{id}")
+//    public ResponseEntity<User> getEmployeeById (@PathVariable("id") int id)
+//    {
+//        if (id <= 3) {
+//        	User employees = new User("e",String.valueOf(id));
+//            return new ResponseEntity<User>(employees, HttpStatus.OK);
+//        }
+//        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+//    }
 }

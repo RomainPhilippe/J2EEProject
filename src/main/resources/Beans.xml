@@ -26,5 +26,9 @@ jdbc:mysql://localhost:3306/localizonles
       class="dao.AreaJDBCTemplate">
       <property name="dataSource"  ref="dataSource" />    
    </bean>
+   <bean id="userJDBCTemplate" 
+      class="dao.UserJDBCTemplate">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean>
       
 </beans>
