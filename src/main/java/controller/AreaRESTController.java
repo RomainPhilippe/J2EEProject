@@ -26,7 +26,7 @@ public class AreaRESTController
 	// pour appeler l'api 
 	// http://localhost:8080/SpringMVC/getArea/{token}
     @RequestMapping(value = "/getArea/{token}")
-    public List<Area> getAllAreaByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
+    public ResponseEntity<List<Area>> getAllAreaByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
     {
     	
     	//creation area en local
@@ -38,13 +38,21 @@ public class AreaRESTController
           	      (UserJDBCTemplate)context.getBean("userJDBCTemplate");
     	 Integer id_user = userJDBCTemplate.getUser(token).getId_user();
     	 
+    	 List<Area> listArea=null;
     	 
+    	 if(id_user!=null){ 
+    	
     	 // a partir de l'id_user on retrouve la liste des zones associées a cet id
     	 AreaJDBCTemplate areaJDBCTemplate = 
        	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
-    	 List<Area> listArea =areaJDBCTemplate.listAreaByIdUser(id_user);
-         
-        return listArea;
+    	 listArea=areaJDBCTemplate.listAreaByIdUser(id_user);
+    	 return new ResponseEntity<List<Area>>(listArea, HttpStatus.OK);
+    	 
+    	 }else{
+    		 System.out.println("id_user not found");
+    		 
+    	 }
+    	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
  
 }
