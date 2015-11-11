@@ -30,5 +30,9 @@ jdbc:mysql://localhost:3306/localizonles
       class="dao.UserJDBCTemplate">
       <property name="dataSource"  ref="dataSource" />    
    </bean>
+   <bean id="notificationJDBCTemplate" 
+      class="dao.NotificationJDBCTemplate">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean>
       
 </beans>

@@ -24,7 +24,7 @@ public class AreaRESTController
 {
 	
 	// pour appeler l'api 
-	// http://localhost:8080/SpringMVC/getArea/{token}
+	// http://localhost:8080/SpringMVC/getArea/HJBUIB688G8G8
     @RequestMapping(value = "/getArea/{token}")
     public ResponseEntity<List<Area>> getAllAreaByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
     {

@@ -6,10 +6,11 @@ public class Notification {
 
 	private Integer id_notification;
 	   private Integer id_user;
-	   private Integer latitude;
-	   private Integer longitude;
+	   private Float latitude;
+	   private Float longitude;
 	   private Date date;
 	   private Integer flag_processing;
+	   
 	public Integer getId_notification() {
 		return id_notification;
 	}
@@ -22,16 +23,16 @@ public class Notification {
 	public void setId_user(Integer id_user) {
 		this.id_user = id_user;
 	}
-	public Integer getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Integer latitude) {
+	public void setLatitude(Float latitude) {
 		this.latitude = latitude;
 	}
-	public Integer getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Integer longitude) {
+	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
 	public Date getDate() {
@@ -46,7 +47,7 @@ public class Notification {
 	public void setFlag_processing(Integer flag_processing) {
 		this.flag_processing = flag_processing;
 	}
-	public Notification(Integer id_notification, Integer id_user, Integer latitude, Integer longitude, Date date,
+	public Notification(Integer id_notification, Integer id_user, Float latitude, Float longitude, Date date,
 			Integer flag_processing) {
 		this.id_notification = id_notification;
 		this.id_user = id_user;
@@ -56,7 +57,5 @@ public class Notification {
 		this.flag_processing = flag_processing;
 	}
 	   
-	   
-	   
-	   
+	    
 }

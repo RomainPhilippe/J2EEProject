@@ -23,9 +23,9 @@ public class UserJDBCTemplate implements UserDao {
 	// a modifier
 	public void createUser(String mail,String password,Date date, String token) {
 		//	System.out.println("Created Record Name = " + id_user + " Age = " + name_area);
-		//	String SQL = "insert into area (id_user, name_area,latitude, longitude, distance) values (?, ?,?,?,?)";
-		//	jdbcTemplateObject.update( SQL,id_user, name_area,latitude, longitude, rayon);
-		//	return;
+		String SQL = "insert into users (mail,password,date,token) values (?,?,?,?)";
+		jdbcTemplateObject.update(SQL,mail,password,date,token);
+		return;
 	}
 
 	public User getUser(String token) {
@@ -37,7 +37,7 @@ public class UserJDBCTemplate implements UserDao {
 		} catch (EmptyResultDataAccessException e) {
 			return new User(null,null,null,null,null);
 		}
-		
+
 		return user;
 	}
 

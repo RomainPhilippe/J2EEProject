@@ -31,8 +31,6 @@ public class EmployeeRESTControllerTest
 	 static final String USER = "eleve1";
 	 static final String PASS = "eleve1";
 
-
-	 
 	 
     @RequestMapping(value = "/employees")
     public User getAllEmployees() throws ClassNotFoundException, SQLException
