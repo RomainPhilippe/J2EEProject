@@ -43,17 +43,82 @@ public class UserRESTController
 		ApplicationContext context = 
 				new ClassPathXmlApplicationContext("Beans.xml");
 
-		// on retrouve l'id_user qui correspond au token recu
+
 		UserJDBCTemplate userJDBCTemplate = 
 				(UserJDBCTemplate)context.getBean("userJDBCTemplate");
 
 		String token= nextSessionId();
 		System.out.println("token : "+token);
-		userJDBCTemplate.createUser(email, password, new  Date(), token);
-		
-		return new ResponseEntity<String>(token, HttpStatus.OK);
 
+		//check mail exist, return true if there is already a mail
+		Boolean mailExist=userJDBCTemplate.checkMailUser(email);
+
+		if(mailExist){
+			return new ResponseEntity<String>("adresse email already exist", HttpStatus.OK);
+		}else{
+			//creation d'un utilisateur
+			userJDBCTemplate.createUser(email, password, new  Date(), token);
+			return new ResponseEntity<String>(token, HttpStatus.OK);
+		}
 
 	}
 
+
+	// pour appeler l'api 
+	// http://localhost:8080/SpringMVC/identificationParent/romain.philippe78@gmail.com/totototot
+	@RequestMapping(value = "/identificationParent/{email}/{password}")
+	public ResponseEntity<String> identificationParent(@PathVariable("email") String email,
+			@PathVariable("password") String password) throws ClassNotFoundException, SQLException
+	{
+
+		//creation area en local
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("Beans.xml");
+
+
+		UserJDBCTemplate userJDBCTemplate = 
+				(UserJDBCTemplate)context.getBean("userJDBCTemplate");
+
+		String token= nextSessionId();
+		System.out.println("token : "+token);
+
+		//check mail exist, return true if there is already a mail
+		Boolean identificationCorrect=userJDBCTemplate.identificationParent(email,password);
+
+		if(identificationCorrect){
+			return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
+		}else{
+			//creation d'un utilisateur
+			return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+
+	}
+	
+	
+	// pour appeler l'api 
+		// http://localhost:8080/SpringMVC/identificationChildren/HJBUIB688G8G8
+		@RequestMapping(value = "/identificationChildren/{token}")
+		public ResponseEntity<String> identificationChildren(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
+		{
+
+			//creation area en local
+			ApplicationContext context = 
+					new ClassPathXmlApplicationContext("Beans.xml");
+
+
+			UserJDBCTemplate userJDBCTemplate = 
+					(UserJDBCTemplate)context.getBean("userJDBCTemplate");
+
+			System.out.println("token input : "+token);
+
+			//check mail exist, return true if there is already a mail
+			Boolean identificationCorrect=userJDBCTemplate.identificationChildren(token);
+
+			if(identificationCorrect){ // on retourne l'id_user
+				return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
+			}else{ //sinon on retourne un message d'erreur
+				return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+			}
+
+		}
 }

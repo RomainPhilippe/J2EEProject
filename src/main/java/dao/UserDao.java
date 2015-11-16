@@ -26,4 +26,12 @@ import model.User;
 	    * to a passed user token.
 	    */
 	   public User getUser(String token);
+	   
+	   public Boolean checkMailUser(String mail);
+	   
+	   public Boolean identificationParent(String mail, String password);
+	   
+	   public Boolean identificationChildren(String token);
+	   
+	   
 }
