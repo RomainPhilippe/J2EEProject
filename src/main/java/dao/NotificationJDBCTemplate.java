@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import model.Notification;
-import model.Student;
 
 public class NotificationJDBCTemplate implements NotificationsDao {
    private DataSource dataSource;

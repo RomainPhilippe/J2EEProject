@@ -5,7 +5,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.Area;
-import model.Student;
 
 	public interface AreaDao {
 	   /** 

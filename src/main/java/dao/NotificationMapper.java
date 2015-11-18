@@ -7,7 +7,6 @@ import java.util.Date;
 import org.springframework.jdbc.core.RowMapper;
 
 import model.Notification;
-import model.Student;
 
 public class NotificationMapper implements RowMapper<Notification> {
    public Notification mapRow(ResultSet rs, int rowNum) throws SQLException {

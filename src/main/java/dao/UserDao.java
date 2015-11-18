@@ -6,7 +6,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.Area;
-import model.Student;
 import model.User;
 
 	public interface UserDao {

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import model.Area;
-import model.Student;
 
 public class AreaMapper implements RowMapper<Area> {
    public Area mapRow(ResultSet rs, int rowNum) throws SQLException {

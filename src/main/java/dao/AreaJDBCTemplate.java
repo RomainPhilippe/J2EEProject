@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import model.Area;
-import model.Student;
 
 public class AreaJDBCTemplate implements AreaDao {
 	private DataSource dataSource;
@@ -29,7 +28,6 @@ public class AreaJDBCTemplate implements AreaDao {
 	                                new AreaMapper());
 	      return area;
 	   }
-	
 	
 
 }

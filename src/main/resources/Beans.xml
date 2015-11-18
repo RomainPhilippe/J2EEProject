@@ -18,10 +18,6 @@ jdbc:mysql://localhost:3306/localizonles
 -->
 
    <!-- Definition for studentJDBCTemplate bean -->
-   <bean id="studentJDBCTemplate" 
-      class="dao.StudentJDBCTemplate">
-      <property name="dataSource"  ref="dataSource" />    
-   </bean>
    <bean id="areaJDBCTemplate" 
       class="dao.AreaJDBCTemplate">
       <property name="dataSource"  ref="dataSource" />    

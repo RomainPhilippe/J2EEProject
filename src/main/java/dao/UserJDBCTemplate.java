@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCountCallbackHandler;
 
 import model.Area;
-import model.Student;
 import model.User;
 
 public class UserJDBCTemplate implements UserDao {
