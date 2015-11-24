@@ -16,10 +16,14 @@ public class MainController {
 			return "home";
 		}
 		
-		@RequestMapping(value = "/displayMessage/{msg}", method = RequestMethod.GET)
-		public String displayMessage(@PathVariable String msg, ModelMap model) {
-			model.addAttribute("msg", msg);
-			return "helloWorld";
-		}
+//		@RequestMapping(value = "/authentification", method = RequestMethod.GET)
+//		public String authentification(ModelMap model) {
+//			//requete dao #identificationParent
+//			if (true){	
+//			return "profil"
+//			}	
+//		
+//			return "home";
+//		}
 		
 	}
