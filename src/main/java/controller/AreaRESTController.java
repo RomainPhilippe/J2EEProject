@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dao.AreaJDBCTemplate;
 import dao.UserJDBCTemplate;
 import model.Area;
+import model.ListArea;
 import model.User;
 
 @RestController
@@ -26,7 +27,7 @@ public class AreaRESTController
 	// pour appeler l'api 
 	// http://localhost:8080/SpringMVC/getArea/HJBUIB688G8G8
     @RequestMapping(value = "/getArea/{token}")
-    public ResponseEntity<List<Area>> getAllAreaByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
+    public ResponseEntity<ListArea> getAllAreaByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
     {
     	
     	//creation area en local
@@ -46,7 +47,7 @@ public class AreaRESTController
     	 AreaJDBCTemplate areaJDBCTemplate = 
        	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
     	 listArea=areaJDBCTemplate.listAreaByIdUser(id_user);
-    	 return new ResponseEntity<List<Area>>(listArea, HttpStatus.OK);
+    	 return new ResponseEntity<ListArea>(new ListArea(listArea), HttpStatus.OK);
     	 
     	 }else{
     		 System.out.println("id_user not found");
