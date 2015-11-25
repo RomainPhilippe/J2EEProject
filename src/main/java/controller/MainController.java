@@ -12,13 +12,13 @@ public class MainController {
 
 		@RequestMapping(value = "/home", method = RequestMethod.GET)
 		public String hello(ModelMap model) {
-			model.addAttribute("msg", "JCG Hello World!");
 			return "home";
 		}
 		
 //		@RequestMapping(value = "/authentification", method = RequestMethod.GET)
 //		public String authentification(ModelMap model) {
 //			//requete dao #identificationParent
+//			model.addAttribute("msg", "JCG Hello World!");
 //			if (true){	
 //			return "profil"
 //			}	
