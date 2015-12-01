@@ -19,6 +19,8 @@ import dao.AreaJDBCTemplate;
 import dao.NotificationJDBCTemplate;
 import dao.UserJDBCTemplate;
 import model.Area;
+import model.ListArea;
+import model.ListNotification;
 import model.Notification;
 import model.User;
 
@@ -69,4 +71,36 @@ public class NotificationRESTController
 		}
 
 	}
+	
+	// pour appeler l'api 
+		// http://localhost:8080/SpringMVC/getArea/HJBUIB688G8G8
+	    @RequestMapping(value = "/getNotifications/{token}")
+	    public ResponseEntity<ListNotification> getAllNotificationsByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
+	    {
+	    	
+	    	//creation area en local
+	    	 ApplicationContext context = 
+	                 new ClassPathXmlApplicationContext("Beans.xml");
+	    	 
+	    	 // on retrouve l'id_user qui correspond au token recu
+	    	 UserJDBCTemplate userJDBCTemplate = 
+	          	      (UserJDBCTemplate)context.getBean("userJDBCTemplate");
+	    	 Integer id_user = userJDBCTemplate.getUser(token).getId_user();
+	    	 
+	    	 List<Notification> listNotification=null;
+	    	 
+	    	 if(id_user!=null){ 
+	    	
+	    	 // a partir de l'id_user on retrouve la liste des zones associées a cet id
+	    	 NotificationJDBCTemplate notificationJDBCTemplate = 
+	       	      (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
+	    	 listNotification=notificationJDBCTemplate.listNotificationByIdUser(id_user);
+	    	 return new ResponseEntity<ListNotification>(new ListNotification(listNotification), HttpStatus.OK);
+	    	 
+	    	 }else{
+	    		 System.out.println("id_user not found");
+	    		 
+	    	 }
+	    	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	    }
 }

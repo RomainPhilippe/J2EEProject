@@ -5,6 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import model.Area;
 import model.Notification;
 
 public class NotificationJDBCTemplate implements NotificationsDao {
@@ -46,5 +47,13 @@ public class NotificationJDBCTemplate implements NotificationsDao {
       jdbcTemplateObject.update(SQL, latitude,longitude,date,flag_processing, id_notification);
       return;
    }
+   
+   public List<Notification> listNotificationByIdUser(Integer id_user) {
+	      String SQL = "select * from out_notification where id_user="+id_user;
+	      List <Notification> notification = jdbcTemplateObject.query(SQL, 
+	                                new NotificationMapper());
+	      return notification;
+	   }
+   
 
 }
