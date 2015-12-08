@@ -86,7 +86,7 @@ public class UserRESTController
 		Boolean identificationCorrect=userJDBCTemplate.identificationParent(email,password);
 
 		if(identificationCorrect){
-			return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
+			return new ResponseEntity<String>(token, HttpStatus.OK);
 		}else{
 			//creation d'un utilisateur
 			return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -115,7 +115,7 @@ public class UserRESTController
 			Boolean identificationCorrect=userJDBCTemplate.identificationChildren(token);
 
 			if(identificationCorrect){ // on retourne l'id_user
-				return new ResponseEntity<String>(token, HttpStatus.OK);
+				return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
 			}else{ //sinon on retourne un message d'erreur
 				return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 			}
