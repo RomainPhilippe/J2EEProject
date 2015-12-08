@@ -1,9 +1,11 @@
 package dao;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import model.Area;
 import model.Notification;
 
 	public interface NotificationsDao {
@@ -17,7 +19,8 @@ import model.Notification;
 	    * a record in the Student table.
 	    */
 	   public void createNotification(Integer id_user,Float latitude,Float longitude,Date date, Integer flag_processing);
-	  
+
+	   public List<Notification> listNotificationByIdUser(Integer id_user);
 	   
 	   public Notification getLastNotification(Integer id_user);
 	   
