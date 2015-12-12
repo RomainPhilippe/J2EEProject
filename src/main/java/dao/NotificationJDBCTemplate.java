@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCountCallbackHandler;
 
 import model.Area;
 import model.Notification;
@@ -26,19 +27,26 @@ public class NotificationJDBCTemplate implements NotificationsDao {
 
       return;
    }
-//
-//   public Student getStudent(Integer id) {
-//      String SQL = "select * from Student where id = ?";
-//      Student student = jdbcTemplateObject.queryForObject(SQL, 
-//                        new Object[]{id}, new StudentMapper());
-//      return student;
-//   }
-//
    public Notification getLastNotification(Integer id_user) {
-      String SQL = "select * from out_notification where id_user=? ORDER BY date DESC LIMIT 1";
-      Notification lastNotif = jdbcTemplateObject.queryForObject(SQL,
-    		  new Object[]{id_user},new NotificationMapper());
-      return lastNotif;
+	   
+	   //on vérifie si il y a au moins une ligne pour cet id user
+	   String SQL = "select * from out_notification where id_user='"+id_user+"'";
+	   //System.out.println("sql : "+SQL);
+	   RowCountCallbackHandler countCallback = new RowCountCallbackHandler();  // not reusable
+		jdbcTemplateObject.query(SQL, countCallback);
+		int rowCount = countCallback.getRowCount();
+		//System.out.println("row count : "+rowCount);
+		if(rowCount>0){
+			String SQL2 = "select * from out_notification where id_user=? ORDER BY date DESC LIMIT 1";
+		      Notification lastNotif = jdbcTemplateObject.queryForObject(SQL2,
+		    		  new Object[]{id_user},new NotificationMapper());
+		      return lastNotif;
+		}else{
+			return new Notification(null,null,null,null,null,null);
+		}
+		
+		
+      
    }
 
 
