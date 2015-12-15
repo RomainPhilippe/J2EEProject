@@ -6,12 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Profil</title>
-
+<style type="text/css">
+      #map { height: 100%;width:100% }
+    </style>
 <!-- CSS -->
 <link href="./resources/css/profil.css" rel="stylesheet">
 
-<!-- Bootstrap Core CSS -->
+ <script type="text/javascript" src="./resources/js/jquery.js"></script>
+
 <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+   <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnxxaOXRTy7v9YA63bDMEW8Qc05j1dNis&callback=initMap">
+    </script>
+    
+ <script type="text/javascript" src="./resources/js/map.js"></script>
+ 
+
+    
+    
 </head>
 
 <body>
@@ -32,13 +44,12 @@
 
 			<!-- Map -->
 			<div class="col-xs-12 col-sm-7 col-md-7">
-				<section class="map"> <iframe width="100%" height="100%"
-					scrolling="no"
-					src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-				<br />
-				<small> <a
-					href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-				</small> </section>
+				<section class="map"> <div id="map"></div>
+
+   
+   
+ 
+    </section>
 			</div>
 
 			<!-- Zones -->
@@ -120,6 +131,8 @@
 			</section>
 		</div>
 	</div>
+
+
 
 </body>
 </html>
