@@ -28,7 +28,7 @@ import model.User;
 	   
 	   public Boolean checkMailUser(String mail);
 	   
-	   public Boolean identificationParent(String mail, String password);
+	   public String identificationParent(String mail, String password);
 	   
 	   public Boolean identificationChildren(String token);
 	   
