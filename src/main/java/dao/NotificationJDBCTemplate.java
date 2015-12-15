@@ -29,13 +29,11 @@ public class NotificationJDBCTemplate implements NotificationsDao {
    }
    public Notification getLastNotification(Integer id_user) {
 	   
-	   //on vérifie si il y a au moins une ligne pour cet id user
+	   //on verifie s'il y a au moins une ligne pour cet id user
 	   String SQL = "select * from out_notification where id_user='"+id_user+"'";
-	   //System.out.println("sql : "+SQL);
 	   RowCountCallbackHandler countCallback = new RowCountCallbackHandler();  // not reusable
 		jdbcTemplateObject.query(SQL, countCallback);
 		int rowCount = countCallback.getRowCount();
-		//System.out.println("row count : "+rowCount);
 		if(rowCount>0){
 			String SQL2 = "select * from out_notification where id_user=? ORDER BY date DESC LIMIT 1";
 		      Notification lastNotif = jdbcTemplateObject.queryForObject(SQL2,
@@ -44,9 +42,6 @@ public class NotificationJDBCTemplate implements NotificationsDao {
 		}else{
 			return new Notification(null,null,null,null,null,null);
 		}
-		
-		
-      
    }
 
 

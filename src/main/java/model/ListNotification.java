@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ListNotification {
 
-	   private List<Notification> notif;
+	private List<Notification> notif;
 
 	public ListNotification(List<Notification> areas) {
 		this.notif = areas;
