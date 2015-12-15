@@ -15,6 +15,11 @@ public class MainController {
 			return "home";
 		}
 		
+		@RequestMapping(value = "/profil", method = RequestMethod.GET)
+		public String map(ModelMap model) {
+			return "profil";
+		}
+		
 //		@RequestMapping(value = "/authentification", method = RequestMethod.GET)
 //		public String authentification(ModelMap model) {
 //			//requete dao #identificationParent

@@ -30,6 +30,7 @@ public class NotificationRESTController
 
 	// pour appeler l'api 
 	// http://localhost:8080/SpringMVC/createNotifications/HJBUIB688G8G8/1.8877/8.79988/processing
+	// http://localhost:8080/SpringMVC/createNotifications/HJBUIB688G8G8/1.8877/8.70000/over
 	@RequestMapping(value = "/createNotifications/{token}/{lat}/{lon}/{state}")
 	public ResponseEntity createNotifications(@PathVariable("token") String token,@PathVariable("lat") Float lat
 			,@PathVariable("lon") Float lon,@PathVariable("state") String state) throws ClassNotFoundException, SQLException{
@@ -47,16 +48,16 @@ public class NotificationRESTController
 			NotificationJDBCTemplate notificationJDBCTemplate= (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
 			System.out.println("state : "+state);
 			//on récupère la dernière notification de l'utilisateur
-			Notification lastnotifByUser =notificationJDBCTemplate.getLastNotification(id_user);
-			
+			Notification lastnotifByUser =notificationJDBCTemplate.getLastNotification(id_user);			
 			
 			if(state.equals("processing")){ // si la sortie de zone est en cours
 				
-				System.out.println("notif : "+lastnotifByUser.getFlag_processing().toString());
-				if(lastnotifByUser.getFlag_processing()==0){ //si il y a déja une notif en cours
+				if(lastnotifByUser.getFlag_processing()!=null && lastnotifByUser.getFlag_processing()==0){ //si il y a déja une notif en cours
 					//on update les positions, la date	et le flag_processing =0
+					System.out.println("update de la notif");
 					notificationJDBCTemplate.updateNotif(lastnotifByUser.getId_notification(), lat, lon,new Date(), new Integer(0));
 				}else{ // on créé la notification
+					System.out.println("creation de la notif");
 					notificationJDBCTemplate.createNotification(id_user, lat, lon, new Date(), new Integer(0));
 				}
 
@@ -73,7 +74,7 @@ public class NotificationRESTController
 	}
 	
 	// pour appeler l'api 
-		// http://localhost:8080/SpringMVC/getArea/HJBUIB688G8G8
+		// http://localhost:8080/SpringMVC/getNotifications/HJBUIB688G8G8
 	    @RequestMapping(value = "/getNotifications/{token}")
 	    public ResponseEntity<ListNotification> getAllNotificationsByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
 	    {
