@@ -49,7 +49,7 @@ public class UserJDBCTemplate implements UserDao {
 	}
 
 	//authentification parent
-	public Boolean identificationParent(String mail,String password) {
+	public String identificationParent(String mail,String password) {
 		String SQL = "select * from users where mail ='"+mail+"' and password='"+password+"'";
 
 		System.out.println(SQL);
@@ -58,9 +58,12 @@ public class UserJDBCTemplate implements UserDao {
 		int rowCount = countCallback.getRowCount();
 		System.out.println("row count : "+rowCount);
 		if(rowCount==1){
-			return true;
+			User user=null;
+			user = jdbcTemplateObject.queryForObject(SQL, 
+					new Object[]{}, new UserMapper());
+			return user.getToken(); 
 		}else{
-			return false;
+			return null;
 		}
 
 	}

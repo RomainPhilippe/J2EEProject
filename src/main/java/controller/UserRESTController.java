@@ -79,17 +79,14 @@ public class UserRESTController
 		UserJDBCTemplate userJDBCTemplate = 
 				(UserJDBCTemplate)context.getBean("userJDBCTemplate");
 
-		String token= nextSessionId();
-		System.out.println("token : "+token);
-
 		//check mail exist, return true if there is already a mail
-		Boolean identificationCorrect=userJDBCTemplate.identificationParent(email,password);
+		String token=userJDBCTemplate.identificationParent(email,password);
 
-		if(identificationCorrect){
+		if(token!=null){
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		}else{
 			//creation d'un utilisateur
-			return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.OK);
 		}
 
 	}
@@ -117,7 +114,7 @@ public class UserRESTController
 			if(identificationCorrect){ // on retourne l'id_user
 				return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
 			}else{ //sinon on retourne un message d'erreur
-				return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.OK);
 			}
 
 		}
