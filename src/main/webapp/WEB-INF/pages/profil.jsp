@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList,controller.MainController"%>
+<%@ page import="java.util.ArrayList,model.Notification"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -93,46 +96,43 @@
 
 		<div class="row">
 			<!-- notification -->
-
 			<section class="col-xs-12 col-sm-12 col-md-12">
 			<caption>Notification</caption>
+			
 			<div class="table-responsive">
-
 				<table class="table table-bordered">
-					
 					<!-- En-tête du tableau -->
 					<thead>
 						<tr>
-							<th>Heure</th>
-							<th>Dernière position</th>
+							<th>id_user</th>
+							<th>id_notif</th>
+							<th>Date</th>
+							<th>Dernière position (Latitude, Longitude)</th>
+							<th>flag_notif</th>
 						</tr>
 					</thead>
 					
 					<!-- corps du tableau -->
 					<tbody>
-						<tr>
-								<td class="warning">19:12</td>
-								<td class="danger">Issy</td>
-							</tr>
-
-							<tr>
-								<td class="warning">20:12</td>
-								<td class="danger">Sept</td>
-							</tr>
-
-							<tr>
-								<td class="warning">21:12</td>
-								<td class="danger">Paris</td>
-							</tr>
+						<c:if test="${not empty listNotif}">
+							<c:forEach var="notif" items="${listNotif}">	
+								<tr>
+									<td class="warning">${notif.id_user}</td>
+									<td class="danger">${notif.id_notification}</td>
+									<td class="danger">${notif.date}</td>
+									<td class="danger">Latitude : ${notif.latitude} - Longitude : ${notif.longitude}</td>
+									<td class="danger">${notif.flag_processing}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 					
 				</table>
 			</div>
+			
 			</section>
 		</div>
+	
 	</div>
-
-
-
 </body>
 </html>
