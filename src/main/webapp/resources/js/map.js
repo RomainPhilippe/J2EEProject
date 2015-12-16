@@ -1,17 +1,52 @@
 var map;
 var initialize;
 var listMarker=[];
- 
-
+ var markertest;
 var map;
+var latitudeMarker;
+var longitudeMarker;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 48, lng: 2},
     zoom: 8
   });
   
+ 
   getPosition(map);
 }
+
+
+$( "#addmarker" ).click(function() {
+	alert('toto');
+	 markertest = new google.maps.Marker({
+		    map: map,
+		    draggable: true,
+		    animation: google.maps.Animation.DROP,
+		    position: {lat: 48, lng: 2},
+		    icon: './resources/img/marker.png'
+		    //icon :goldStar
+		  });
+	 google.maps.event.addListener(markertest, 'dragend', function (event) {
+			latitudeMarker =this.getPosition().lat();
+			longitudeMarker=this.getPosition().lng();
+		});
+});
+
+$("#addarea").click(function() {
+	console.log("add area");
+	console.log($('#rayon').val());
+	$.ajax({
+	       url : 'createArea/1/'+latitudeMarker+'/'+longitudeMarker+'/'+$('#areaname').val()+'/'+$('#labelarea').val()+'/'+$('#rayon').val(),
+	       type : 'POST',
+	       encoding:"UTF-8",
+	       async: true,
+	       success : function(data){  
+	       }
+	    });
+});
+
+
 
 
 function getPosition(map){
@@ -31,13 +66,17 @@ function getPosition(map){
 	    		   latitude=data['area'][i]['latitude'];
 	    		   longitude=data['area'][i]['longitude'];
 	    		   distance=data['area'][i]['distance'];
-	    		   nameArea=data['area'][i]['names_area'];
+	    		   nameArea=data['area'][i]['name_area'];
 	    		   labelArea=data['area'][i]['label_area'];
 	    		   //console.log("latitude : "+ data['area'][i]['latitude']);
 	    		   //console.log("longitude : "+ data['area'][i]['longitude']);
 	    		   var myLatlng = new google.maps.LatLng(latitude,longitude);
 	    		   listMarker[i]=createMarker(myLatlng,"m"+i,map,nameArea,labelArea,id_area,latitude,longitude,distance);
+	    		   
+	    		   $('#table_area tr:last').after('<tr><td>'+nameArea+'</td>'+'<td>'+labelArea+'</td></tr>');
 	    	   }
+	    	   
+	    	   
 	       }
 	    });
 
@@ -82,3 +121,5 @@ function createMarker(pos, t,map,title,description,id,latitude,longitude,distanc
     }); 
     return marker;  
 }
+
+

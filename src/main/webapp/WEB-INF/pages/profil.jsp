@@ -21,8 +21,9 @@
    <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnxxaOXRTy7v9YA63bDMEW8Qc05j1dNis&callback=initMap">
     </script>
-    
- <script type="text/javascript" src="./resources/js/map.js"></script>
+
+
+
  
 
     
@@ -44,55 +45,74 @@
 	<div class="container">
 
 		<div class="row">
-
+		
 			<!-- Map -->
 			<div class="col-xs-12 col-sm-7 col-md-7">
-				<section class="map"> <div id="map"></div>
-
-   
-   
- 
-    </section>
+				<section class="map"> 
+					<div id="map">
+					</div>
+			    </section>
 			</div>
 
 			<!-- Zones -->
 			<div class="col-xs-12 col-sm-5 col-md-5">
 				<section>
-				<caption>Définition des zones</caption>
-
-				<div class="tableZone">
-
-					<table class="table table-bordered">
-						<!-- En-tête du tableau -->
-						<thead>		
-							<tr>
-								<th>lieu</th>
-								<th>commentaire</th>
-							</tr>
-						</thead>
+						<caption>Définition des zones</caption>
+		
+						<div class="tableZone">
+		
+							<table class="table table-bordered" id="table_area">
+								<!-- En-tête du tableau -->
+								<thead>		
+									<tr>
+										<th>lieu</th>
+										<th>commentaire</th>
+									</tr>
+								</thead>
+								
+								<!-- corps du tableau -->
+								<tbody>
+								</tbody>
+							</table>
+							
+					
+								<button type="button" class="btn btn-primary" id="addmarker">Add marker</button><br><br>
+								
+								<div class="form-group col-xs-4">
+					                <label for="areaname" class="sr-only"></label>
+					                <input id="areaname" class="form-control input-group-lg reg_name" type="text" name="areaname"
+					                       title="Enter first name"
+					                       placeholder="name aera"/>
+					            </div>
+					
+					            <div class="form-group col-xs-4">
+					                <label for="labelarea" class="sr-only"></label>
+					                <input id="labelarea" class="form-control input-group-lg reg_name" type="text" name="labelarea"
+					                       title="Enter last name"
+					                       placeholder="label area"/>
+					            </div>
+					            
+					            <div class="form-group col-xs-4">
+					                <label for="rayon" class="sr-only"></label>
+					                <input id="rayon" class="form-control input-group-lg reg_name" type="text" name="rayon"
+					                       title="Enter last name"
+					                       placeholder="Rayon"/>
+					            </div>
+     
+    							 <button type="button" class="btn btn-primary" id="addarea">Add area</button>
+							
+							
+							
+            
 						
-						<!-- corps du tableau -->
-						<tbody>
-							<tr>
-								<td class="warning">19:12</td>
-								<td class="danger">Issy</td>
-							</tr>
-
-							<tr>
-								<td class="warning">20:12</td>
-								<td class="danger">Sept</td>
-							</tr>
-
-							<tr>
-								<td class="warning">21:12</td>
-								<td class="danger">Paris</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+						
+						</div>
 				</section>
 			</div>
 		</div>
+
+
+
 
 		<div class="row">
 			<!-- notification -->
@@ -136,3 +156,4 @@
 	</div>
 </body>
 </html>
+ <script type="text/javascript" src="./resources/js/map.js"></script>
