@@ -29,5 +29,11 @@ public class AreaJDBCTemplate implements AreaDao {
 	      return area;
 	   }
 	
+	public void deleteArea(Integer id_area){
+		String SQL = "delete from area where id_area="+id_area;
+		jdbcTemplateObject.update(SQL);
+		return;
+	}
+	
 
 }

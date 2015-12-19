@@ -67,6 +67,7 @@
 									<tr>
 										<th>lieu</th>
 										<th>commentaire</th>
+										<th>delete</th>
 									</tr>
 								</thead>
 								

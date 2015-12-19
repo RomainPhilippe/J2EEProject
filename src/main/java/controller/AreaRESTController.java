@@ -58,7 +58,7 @@ public class AreaRESTController
     
     //  http://localhost:8080/SpringMVC/createArea/1/12.22/23.1/test/test/12
     @RequestMapping(value = "/createArea/{idUser}/{lat}/{lon}/{nameArea}/{labelArea}/{rayon}")
-    public ResponseEntity<String> createUser(@PathVariable("idUser") Integer idUser,
+    public ResponseEntity<String> createArea(@PathVariable("idUser") Integer idUser,
     		@PathVariable("lat") Float lat,@PathVariable("lon") Float lon,
     		@PathVariable("nameArea") String nameArea,@PathVariable("labelArea") String labelArea,
     		@PathVariable("rayon") Double rayon
@@ -86,5 +86,24 @@ public class AreaRESTController
     	 }
     	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+    
+ // pour appeler l'api 
+ 	// http://localhost:8080/SpringMVC/deleteArea/quelquechose
+     @RequestMapping(value = "/deleteArea/{id_area}")
+     public ResponseEntity deleteArea(@PathVariable("id_area") Integer id_area) throws ClassNotFoundException, SQLException
+     {
+     	
+     	//creation area en local
+     	 ApplicationContext context = 
+                  new ClassPathXmlApplicationContext("Beans.xml");
+     	 
+     	 AreaJDBCTemplate areaJDBCTemplate = 
+          	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
+     	 
+     	areaJDBCTemplate.deleteArea(id_area);
+     	
+     	 return new ResponseEntity(HttpStatus.OK);
+
+     }
  
 }

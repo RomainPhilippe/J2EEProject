@@ -8,40 +8,44 @@ var longitudeMarker;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 48, lng: 2},
-    zoom: 8
+    center: {lat: 48.856614 , lng: 2.352222},
+    zoom: 11
   });
   
- 
-  getPosition(map);
+  markertest = new google.maps.Marker({
+	    map: map,
+	    draggable: true,
+	    animation: google.maps.Animation.DROP,
+	    position: {lat: 48.856614 , lng: 2.352222},
+	    icon: './resources/img/marker.png'
+	    //icon :goldStar
+	  });
+  markertest.setVisible(false);
+  addArea(map);
 }
 
 
+
 $( "#addmarker" ).click(function() {
-	alert('toto');
-	 markertest = new google.maps.Marker({
-		    map: map,
-		    draggable: true,
-		    animation: google.maps.Animation.DROP,
-		    position: {lat: 48, lng: 2},
-		    icon: './resources/img/marker.png'
-		    //icon :goldStar
-		  });
-	 google.maps.event.addListener(markertest, 'dragend', function (event) {
-			latitudeMarker =this.getPosition().lat();
-			longitudeMarker=this.getPosition().lng();
-		});
+	console.log(markertest.getVisible());	
+	if(!markertest.getVisible()){
+		console.log("pas de marekre");
+		markertest.setVisible(true);
+	}
+
+		
 });
 
 $("#addarea").click(function() {
-	console.log("add area");
+	//console.log("add area");
 	console.log($('#rayon').val());
 	$.ajax({
-	       url : 'createArea/1/'+latitudeMarker+'/'+longitudeMarker+'/'+$('#areaname').val()+'/'+$('#labelarea').val()+'/'+$('#rayon').val(),
+	       url : 'createArea/1/'+markertest.getPosition().lat()+'/'+markertest.getPosition().lng()+'/'+$('#areaname').val()+'/'+$('#labelarea').val()+'/'+$('#rayon').val(),
 	       type : 'POST',
 	       encoding:"UTF-8",
 	       async: true,
 	       success : function(data){  
+	    	   location.reload();
 	       }
 	    });
 });
@@ -49,7 +53,7 @@ $("#addarea").click(function() {
 
 
 
-function getPosition(map){
+function addArea(map){
 	
 	$.ajax({
 	       url : 'getArea/HJBUIB688G8G8',
@@ -73,7 +77,7 @@ function getPosition(map){
 	    		   var myLatlng = new google.maps.LatLng(latitude,longitude);
 	    		   listMarker[i]=createMarker(myLatlng,"m"+i,map,nameArea,labelArea,id_area,latitude,longitude,distance);
 	    		   
-	    		   $('#table_area tr:last').after('<tr><td>'+nameArea+'</td>'+'<td>'+labelArea+'</td></tr>');
+	    		   $('#table_area tr:last').after('<tr><td>'+nameArea+'</td>'+'<td>'+labelArea+'</td>'+'<td><button type="button" class="btn btn-primary" onclick=deleteArea('+id_area+')>delete marker</button></td>'+'</tr>');
 	    	   }
 	    	   
 	    	   
@@ -81,6 +85,20 @@ function getPosition(map){
 	    });
 
 	
+}
+
+function deleteArea(id){
+	
+	$.ajax({
+	       url : 'deleteArea/'+id,
+	       type : 'POST',
+	       encoding:"UTF-8",
+	       async: true,
+	       success : function(data){
+	    	   alert("La zone a bien été supprimé");
+	    	   location.reload();
+	       }
+	    });
 }
 
 function createMarker(pos, t,map,title,description,id,latitude,longitude,distance) {
@@ -121,5 +139,3 @@ function createMarker(pos, t,map,title,description,id,latitude,longitude,distanc
     }); 
     return marker;  
 }
-
-

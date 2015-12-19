@@ -22,4 +22,10 @@ import model.Area;
 	    * all the records from the Area table.
 	    */
 	   public List<Area> listAreaByIdUser(Integer id_user);
+	   
+	   /** 
+	    * This is the method to be used to list down
+	    * all the records from the Area table.
+	    */
+	   public void deleteArea(Integer id_area);
 }
