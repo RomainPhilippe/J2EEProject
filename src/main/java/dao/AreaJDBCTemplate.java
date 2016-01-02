@@ -15,8 +15,8 @@ public class AreaJDBCTemplate implements AreaDao {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
-	public void create(Integer id_user,String name_area,String label_area, Double latitude, Double longitude, Double rayon) {
-		System.out.println("Created Record Name = " + id_user + " Age = " + name_area);
+	public void create(Integer id_user,String name_area,String label_area, Float latitude, Float longitude, Double rayon) {
+		System.out.println("Created Record Name = " + id_user + " Area = " + name_area);
 		String SQL = "insert into area (id_user, name_area,latitude, longitude, distance) values (?, ?,?,?,?)";
 		jdbcTemplateObject.update( SQL,id_user, name_area,latitude, longitude, rayon);
 		return;
@@ -28,6 +28,12 @@ public class AreaJDBCTemplate implements AreaDao {
 	                                new AreaMapper());
 	      return area;
 	   }
+	
+	public void deleteArea(Integer id_area){
+		String SQL = "delete from area where id_area="+id_area;
+		jdbcTemplateObject.update(SQL);
+		return;
+	}
 	
 
 }

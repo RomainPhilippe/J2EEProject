@@ -55,5 +55,55 @@ public class AreaRESTController
     	 }
     	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+    
+    //  http://localhost:8080/SpringMVC/createArea/1/12.22/23.1/test/test/12
+    @RequestMapping(value = "/createArea/{idUser}/{lat}/{lon}/{nameArea}/{labelArea}/{rayon}")
+    public ResponseEntity<String> createArea(@PathVariable("idUser") Integer idUser,
+    		@PathVariable("lat") Float lat,@PathVariable("lon") Float lon,
+    		@PathVariable("nameArea") String nameArea,@PathVariable("labelArea") String labelArea,
+    		@PathVariable("rayon") Double rayon
+    		) throws ClassNotFoundException, SQLException
+    {
+    	
+    	//creation area en local
+    	 ApplicationContext context = 
+                 new ClassPathXmlApplicationContext("Beans.xml");
+    	 
+    	 
+    	 List<Area> listArea=null;
+    	 
+    	 if(idUser!=null){ 
+    	
+    	 // a partir de l'id_user on retrouve la liste des zones associées a cet id
+    	 AreaJDBCTemplate areaJDBCTemplate = 
+       	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
+    	 areaJDBCTemplate.create(idUser, nameArea, labelArea, lat, lon, rayon);
+    	 return new ResponseEntity<String>(HttpStatus.OK);
+    	 
+    	 }else{
+    		 System.out.println("id_user not found");
+    		 
+    	 }
+    	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+    
+ // pour appeler l'api 
+ 	// http://localhost:8080/SpringMVC/deleteArea/quelquechose
+     @RequestMapping(value = "/deleteArea/{id_area}")
+     public ResponseEntity deleteArea(@PathVariable("id_area") Integer id_area) throws ClassNotFoundException, SQLException
+     {
+     	
+     	//creation area en local
+     	 ApplicationContext context = 
+                  new ClassPathXmlApplicationContext("Beans.xml");
+     	 
+     	 AreaJDBCTemplate areaJDBCTemplate = 
+          	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
+     	 
+     	areaJDBCTemplate.deleteArea(id_area);
+     	
+     	 return new ResponseEntity(HttpStatus.OK);
+
+     }
  
 }

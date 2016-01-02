@@ -19,83 +19,93 @@ import dao.NotificationJDBCTemplate;
 import dao.UserJDBCTemplate;
 
 @RestController
-public class NotificationRESTController
-{
+public class NotificationRESTController {
+	/*
+	 * pour appeler l'api
+	 * http://localhost:8080/SpringMVC/createNotifications/HJBUIB688G8G8
+	 * /1.8877/8.79988/processing
+	 * http://localhost:8080/SpringMVC/createNotifications
+	 * /HJBUIB688G8G8/1.8877/8.70000/over
+	 */
 
-	// pour appeler l'api 
-	// http://localhost:8080/SpringMVC/createNotifications/HJBUIB688G8G8/1.8877/8.79988/processing
-	// http://localhost:8080/SpringMVC/createNotifications/HJBUIB688G8G8/1.8877/8.70000/over
 	@RequestMapping(value = "/createNotifications/{token}/{lat}/{lon}/{state}")
-	public ResponseEntity createNotifications(@PathVariable("token") String token,@PathVariable("lat") Float lat
-			,@PathVariable("lon") Float lon,@PathVariable("state") String state) throws ClassNotFoundException, SQLException{
+	public ResponseEntity createNotifications(@PathVariable("token") String token, @PathVariable("lat") Float lat, @PathVariable("lon") Float lon, @PathVariable("state") String state)
+			throws ClassNotFoundException, SQLException {
 
-		//creation area en local
-		ApplicationContext context = 
-				new ClassPathXmlApplicationContext("Beans.xml");
+		// creation area en local
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 
 		// on retrouve l'id_user qui correspond au token recu
-		UserJDBCTemplate userJDBCTemplate = 
-				(UserJDBCTemplate)context.getBean("userJDBCTemplate");
+		UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
 		Integer id_user = userJDBCTemplate.getUser(token).getId_user();
 
-		if(id_user!=null){ // si l'id_user existe
-			NotificationJDBCTemplate notificationJDBCTemplate= (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
-			System.out.println("state : "+state);
-			//on r�cup�re la derni�re notification de l'utilisateur
-			Notification lastnotifByUser =notificationJDBCTemplate.getLastNotification(id_user);			
-			
-			if(state.equals("processing")){ // si la sortie de zone est en cours
-				
-				if(lastnotifByUser.getFlag_processing()!=null && lastnotifByUser.getFlag_processing()==0){ //si il y a d�ja une notif en cours
-					//on update les positions, la date	et le flag_processing =0
+		if (id_user != null) { // si l'id_user existe
+			NotificationJDBCTemplate notificationJDBCTemplate = (NotificationJDBCTemplate) context.getBean("notificationJDBCTemplate");
+			System.out.println("state : " + state);
+
+			// on recupere la derniere notification de l'utilisateur
+			Notification lastnotifByUser = notificationJDBCTemplate.getLastNotification(id_user);
+
+			if (state.equals("processing")) // si la sortie de zone est en cours
+			{
+
+				if (lastnotifByUser.getFlag_processing() != null && lastnotifByUser.getFlag_processing() == 0)
+				// s'il y a deja une notif en cours, on update les positions, la
+				// date et le flag_processing =0
+				{
 					System.out.println("update de la notif");
-					notificationJDBCTemplate.updateNotif(lastnotifByUser.getId_notification(), lat, lon,new Date(), new Integer(0));
-				}else{ // on cr�� la notification
+					notificationJDBCTemplate.updateNotif(lastnotifByUser.getId_notification(), lat, lon, new Date(), new Integer(0));
+				}
+
+				else // on cree la notification
+				{
 					System.out.println("creation de la notif");
 					notificationJDBCTemplate.createNotification(id_user, lat, lon, new Date(), new Integer(0));
 				}
+			}
 
-			}else{ // si la sortie de zone est termin�e
-				//on update les positions, la date et le flag_processing =1
-				notificationJDBCTemplate.updateNotif(lastnotifByUser.getId_notification(), lat, lon,new Date(), new Integer(1));
+			else // si la sortie de zone est terminee on update les positions,
+					// la date et le flag_processing =1
+			{
+				notificationJDBCTemplate.updateNotif(lastnotifByUser.getId_notification(), lat, lon, new Date(), new Integer(1));
 			}
 
 			return new ResponseEntity(HttpStatus.OK);
-		}else{
+		}
+
+		else {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	
-	// pour appeler l'api 
-		// http://localhost:8080/SpringMVC/getNotifications/HJBUIB688G8G8
-	    @RequestMapping(value = "/getNotifications/{token}")
-	    public ResponseEntity<ListNotification> getAllNotificationsByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
-	    {
-	    	
-	    	//creation area en local
-	    	 ApplicationContext context = 
-	                 new ClassPathXmlApplicationContext("Beans.xml");
-	    	 
-	    	 // on retrouve l'id_user qui correspond au token recu
-	    	 UserJDBCTemplate userJDBCTemplate = 
-	          	      (UserJDBCTemplate)context.getBean("userJDBCTemplate");
-	    	 Integer id_user = userJDBCTemplate.getUser(token).getId_user();
-	    	 
-	    	 List<Notification> listNotification=null;
-	    	 
-	    	 if(id_user!=null){ 
-	    	
-	    	 // a partir de l'id_user on retrouve la liste des zones associ�es a cet id
-	    	 NotificationJDBCTemplate notificationJDBCTemplate = 
-	       	      (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
-	    	 listNotification=notificationJDBCTemplate.listNotificationByIdUser(id_user);
-	    	 return new ResponseEntity<ListNotification>(new ListNotification(listNotification), HttpStatus.OK);
-	    	 
-	    	 }else{
-	    		 System.out.println("id_user not found");
-	    		 
-	    	 }
-	    	 return new ResponseEntity(HttpStatus.BAD_REQUEST);
-	    }
+
+	// pour appeler l'api
+	// http://localhost:8080/SpringMVC/getNotifications/HJBUIB688G8G8
+	@RequestMapping(value = "/getNotifications/{token}")
+	public ResponseEntity<ListNotification> getAllNotificationsByUser(@PathVariable("token") String token) throws ClassNotFoundException, SQLException {
+
+		// creation area en local
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+
+		// on retrouve l'id_user qui correspond au token recu
+		UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
+		Integer id_user = userJDBCTemplate.getUser(token).getId_user();
+
+		List<Notification> listNotification = null;
+
+		if (id_user != null) { // a partir de l'id_user on retrouve la liste des
+								// zones associees a cet id
+
+			NotificationJDBCTemplate notificationJDBCTemplate = (NotificationJDBCTemplate) context.getBean("notificationJDBCTemplate");
+			listNotification = notificationJDBCTemplate.listNotificationByIdUser(id_user);
+			return new ResponseEntity<ListNotification>(new ListNotification(listNotification), HttpStatus.OK);
+
+		}
+
+		else {
+			System.out.println("id_user not found");
+		}
+
+		return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	}
 }
