@@ -125,7 +125,6 @@
 					<!-- En-tête du tableau -->
 					<thead>
 						<tr>
-							<th>id_user</th>
 							<th>id_notif</th>
 							<th>Date</th>
 							<th>Dernière position (Latitude, Longitude)</th>
@@ -138,11 +137,17 @@
 						<c:if test="${not empty listNotif}">
 							<c:forEach var="notif" items="${listNotif}">	
 								<tr>
-									<td class="warning">${notif.id_user}</td>
 									<td class="danger">${notif.id_notification}</td>
 									<td class="danger">${notif.date}</td>
 									<td class="danger">Latitude : ${notif.latitude} - Longitude : ${notif.longitude}</td>
-									<td class="danger">${notif.flag_processing}</td>
+									<td class="danger">
+									<c:if test="${notif.flag_processing==1}">
+								        Termine
+								    </c:if>
+								    <c:if test="${notif.flag_processing==0}">
+								        En cours...
+								    </c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
