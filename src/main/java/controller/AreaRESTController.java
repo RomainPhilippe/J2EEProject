@@ -43,7 +43,7 @@ public class AreaRESTController
     	 
     	 if(id_user!=null){ 
     	
-    	 // a partir de l'id_user on retrouve la liste des zones associées a cet id
+    	 // a partir de l'id_user on retrouve la liste des zones associï¿½es a cet id
     	 AreaJDBCTemplate areaJDBCTemplate = 
        	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
     	 listArea=areaJDBCTemplate.listAreaByIdUser(id_user);
@@ -74,7 +74,7 @@ public class AreaRESTController
     	 
     	 if(idUser!=null){ 
     	
-    	 // a partir de l'id_user on retrouve la liste des zones associées a cet id
+    	 // a partir de l'id_user on retrouve la liste des zones associï¿½es a cet id
     	 AreaJDBCTemplate areaJDBCTemplate = 
        	      (AreaJDBCTemplate)context.getBean("areaJDBCTemplate");
     	 areaJDBCTemplate.create(idUser, nameArea, labelArea, lat, lon, rayon);

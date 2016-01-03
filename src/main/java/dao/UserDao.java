@@ -28,7 +28,10 @@ import model.User;
 	   
 	   public Boolean checkMailUser(String mail);
 	   
-	   public String identificationParent(String mail, String password);
+	   public static String identificationParent(String mail, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	   
 	   public Boolean identificationChildren(String token);
 	   
