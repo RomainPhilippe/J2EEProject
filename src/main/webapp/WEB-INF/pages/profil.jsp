@@ -163,7 +163,7 @@
 	</div>
 </body>
 </html>
- <script type="text/javascript" >
+ <script type="text/javascript">
  var map;
  var initialize;
  var listMarker=[];

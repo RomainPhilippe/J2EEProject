@@ -119,17 +119,5 @@ public class MainController {
 
 		}
 		
-//		@RequestMapping(value = "/authentification", method = RequestMethod.GET)
-//		public String authentification(ModelMap model) {
-//			//requete dao #identificationParent
-//			model.addAttribute("msg", "JCG Hello World!");
-//			if (true){	
-//			return "profil"
-//			}	
-//		
-//			return "home";
-//		}
-		
-		
 		
 	}
