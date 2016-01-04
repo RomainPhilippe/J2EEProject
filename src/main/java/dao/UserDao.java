@@ -30,6 +30,8 @@ import model.User;
 	   
 	   public String identificationParent(String mail, String password);
 	   
+	   public User identificationParent2(String mail, String password);
+	   
 	   public Boolean identificationChildren(String token);
 	   
 	   

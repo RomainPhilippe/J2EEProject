@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import dao.NotificationJDBCTemplate;
 import dao.UserDao;
@@ -30,6 +31,8 @@ import model.User;
 
 //controler principal
 @Controller
+@SessionAttributes("token")
+
 public class MainController {
 	
 		List<Notification> listNotification=null;
@@ -44,30 +47,6 @@ public class MainController {
 		{
 				System.out.println("home");
 				
-//				ModelAndView model= null;
-//				try
-//				{
-//					ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-//					UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
-//						String isValidUser = userJDBCTemplate.identificationParent(loginBean.getMail(), loginBean.getPassword());
-//						if(isValidUser != null)
-//						{
-//								System.out.println("User Login Successful");
-//								request.setAttribute("loggedInUser", loginBean.getMail());
-//								model = new ModelAndView("profil");
-//						}
-//						else
-//						{
-//								model = new ModelAndView("home");
-//								request.setAttribute("message", "Invalid credentials!!");
-//						}
-//
-//				}
-//				catch(Exception e)
-//				{
-//						e.printStackTrace();
-//				}
-
 				return new ModelAndView("profil");
 		}
 		
@@ -77,27 +56,31 @@ public class MainController {
 		      //return "student";
 		   }
 		   
+		   
 		   @RequestMapping(value = "/authentification", method = RequestMethod.POST)
 		   public ModelAndView addStudent(@ModelAttribute("SpringWeb")Authentification student, 
 		   ModelMap model) {
 			   System.out.println("name : "+student.getEmail());
 			   System.out.println("age : "+student.getPassword());
 
+			   
+			   
 				try
 				{
 					ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 					UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
-						String isValidUser = userJDBCTemplate.identificationParent(student.getEmail(), student.getPassword());
-						if(isValidUser != null)
+						User user = userJDBCTemplate.identificationParent2(student.getEmail(), student.getPassword());
+						if(user.getToken() != null)
 						{
+							List<Notification> list = getList();
+								ModelAndView modelAndView = new ModelAndView("profil");
 								System.out.println("User Login Successful");
-								//request.setAttribute("loggedInUser", loginBean.getMail());
-								return new ModelAndView("profil");
-						}
-						else
-						{
+								modelAndView.addObject("token", user.getToken());
+								modelAndView.addObject("id_user", user.getId_user());
+								modelAndView.addObject("listNotif", list);
+								return modelAndView;
+						}else{
 							    return new ModelAndView("home", "command", new Authentification());
-								//request.setAttribute("message", "Invalid credentials!!");
 						}
 
 				}
