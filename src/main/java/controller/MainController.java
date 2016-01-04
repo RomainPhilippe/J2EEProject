@@ -67,17 +67,6 @@ public class MainController {
 
 	}
 
-	@RequestMapping(value = "/profil", method = RequestMethod.GET)
-	public ModelAndView profil() {
-		
-		List<Notification> list = getList();
-		// return back to profil.jsp
-		ModelAndView model = new ModelAndView("profil");
-		model.addObject("listNotif", list);
-
-		return model;
-	}
-
 	private List<Notification> getList() {
 
 		List<Notification> list = new ArrayList<Notification>();
