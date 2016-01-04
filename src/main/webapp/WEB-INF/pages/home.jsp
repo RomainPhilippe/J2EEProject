@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -20,13 +18,6 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-		        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		    <![endif]-->
 </head>
 
 <body>
@@ -42,24 +33,28 @@
 			<div class="col-xs-5 col-md-4 col-sm-offset-4 col-xs-offset-3 col-md-offset-4">
 			
 			<h4>Please sign in</h4>
-				
-				<form class="form-signin" method="post" action="home" modelAttribute="loginBean">
+				 
+				<form:form class="form-signin" method="post" action="authentification">
 
-					<label for="inputEmail" class="sr-only">Email address</label> 
-					<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus> 
-					<label for="inputPassword" class="sr-only">Password</label> 
-					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+					<table>
+					    <tr>
+					        <td><form:label path="email">email</form:label></td>
+					        <td><form:input path="email" /></td>
+					    </tr>
+					    <tr>
+					        <td><form:label path="password">password</form:label></td>
+					        <td><form:input path="password" /></td>
+					    </tr>
+					    <tr>
+					        <td colspan="2">
+					            <input type="submit" value="Submit"/>
+					        </td>
+					    </tr>
+					</table> 
+										<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	in</button>
 
-					<div class="checkbox">
-						<label> <input type="checkbox" value="remember-me">
-							Remember me
-						</label>
-					</div>
-
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	in</button>
-
-				</form>
-				
+				</form:form>
+			
 			</div>
 		</div>
 	</div>
