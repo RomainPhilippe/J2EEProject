@@ -40,7 +40,7 @@ public class UserRESTController
 {
 	private SecureRandom random = new SecureRandom();
 	private String USERNAME_MAIL="romain.philippe78@gmail.com";
-	private String PASSWORD_MAIL="685932ro";
+	private String PASSWORD_MAIL="";
 
 	public String nextSessionId() {
 		return new BigInteger(100, random).toString(32);
@@ -74,7 +74,7 @@ public class UserRESTController
 			//creation d'un utilisateur
 			userJDBCTemplate.createUser(email, password, new  Date(), token);
 			sendMail(email,token);
-		      
+
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		}
 
@@ -107,38 +107,38 @@ public class UserRESTController
 		}
 
 	}
-	
-	
+
+
 	// pour appeler l'api 
-		// http://localhost:8080/SpringMVC/identificationChildren/HJBUIB688G8G8
-		@RequestMapping(value = "/identificationChildren/{token}")
-		public ResponseEntity<String> identificationChildren(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
-		{
+	// http://localhost:8080/SpringMVC/identificationChildren/HJBUIB688G8G8
+	@RequestMapping(value = "/identificationChildren/{token}")
+	public ResponseEntity<String> identificationChildren(@PathVariable("token") String token) throws ClassNotFoundException, SQLException
+	{
 
-			//creation area en local
-			ApplicationContext context = 
-					new ClassPathXmlApplicationContext("Beans.xml");
+		//creation area en local
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext("Beans.xml");
 
 
-			UserJDBCTemplate userJDBCTemplate = 
-					(UserJDBCTemplate)context.getBean("userJDBCTemplate");
+		UserJDBCTemplate userJDBCTemplate = 
+				(UserJDBCTemplate)context.getBean("userJDBCTemplate");
 
-			System.out.println("token input : "+token);
+		System.out.println("token input : "+token);
 
-			//check mail exist, return true if there is already a mail
-			Boolean identificationCorrect=userJDBCTemplate.identificationChildren(token);
+		//check mail exist, return true if there is already a mail
+		Boolean identificationCorrect=userJDBCTemplate.identificationChildren(token);
 
-			if(identificationCorrect){ // on retourne l'id_user
-				return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
-			}else{ //sinon on retourne un message d'erreur
-				return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.OK);
-			}
-
+		if(identificationCorrect){ // on retourne l'id_user
+			return new ResponseEntity<String>("AUTHORIZED", HttpStatus.OK);
+		}else{ //sinon on retourne un message d'erreur
+			return new ResponseEntity<String>("UNAUTHORIZED", HttpStatus.OK);
 		}
-		
-		public void sendMail(String email, String token){
 
-			
+	}
+
+	public void sendMail(String email, String token){
+
+		if(PASSWORD_MAIL!=""){
 			Properties props = new Properties();
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.starttls.enable", "true");
@@ -146,21 +146,21 @@ public class UserRESTController
 			props.put("mail.smtp.port", "587");
 
 			Session session = Session.getInstance(props,
-			  new javax.mail.Authenticator() {
+					new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(USERNAME_MAIL, PASSWORD_MAIL);
 				}
-			  });
+			});
 
 			try {
 
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress("from-email@gmail.com"));
 				message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(email));
+						InternetAddress.parse(email));
 				message.setSubject("Welcome to Localizonles");
 				message.setText("Dear customer,"
-					+ "\n\n You are please to inform you that your profil account is now ready to use! \n Your token is :"+token);
+						+ "\n\n You are please to inform you that your profil account is now ready to use! \n Your token is :"+token);
 
 				Transport.send(message);
 
@@ -169,6 +169,7 @@ public class UserRESTController
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
-			
 		}
+
+	}
 }
