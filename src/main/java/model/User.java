@@ -43,7 +43,6 @@ public class User {
 	}
 	
 	public User(Integer id_user, String mail, String password, Date date, String token) {
-		super();
 		this.id_user = id_user;
 		this.mail = mail;
 		this.password = password;

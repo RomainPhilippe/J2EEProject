@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -37,17 +39,16 @@
 		<h3>Garder un oeil sur la prunelle de vos yeux</h3>
 
 		<div class="container">
-			<div
-				class="col-xs-5 col-md-4 col-sm-offset-4 col-xs-offset-3 col-md-offset-4">
-				<h4>Please sign in</h4>
-				<form class="form-signin">
+			<div class="col-xs-5 col-md-4 col-sm-offset-4 col-xs-offset-3 col-md-offset-4">
+			
+			<h4>Please sign in</h4>
+				
+				<form class="form-signin" method="post" action="home" modelAttribute="loginBean">
 
-					<label for="inputEmail" class="sr-only">Email address</label> <input
-						type="email" id="inputEmail" class="form-control"
-						placeholder="Email address" required autofocus> <label
-						for="inputPassword" class="sr-only">Password</label> <input
-						type="password" id="inputPassword" class="form-control"
-						placeholder="Password" required>
+					<label for="inputEmail" class="sr-only">Email address</label> 
+					<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus> 
+					<label for="inputPassword" class="sr-only">Password</label> 
+					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
 					<div class="checkbox">
 						<label> <input type="checkbox" value="remember-me">
@@ -55,10 +56,10 @@
 						</label>
 					</div>
 
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-						in</button>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	in</button>
 
 				</form>
+				
 			</div>
 		</div>
 	</div>
