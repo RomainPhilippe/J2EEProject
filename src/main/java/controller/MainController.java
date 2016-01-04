@@ -31,7 +31,7 @@ import model.User;
 //controler principal
 @Controller
 public class MainController {
-
+	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	List<Notification> listNotification = null;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class MainController {
 	public ModelAndView addStudent(@ModelAttribute("SpringWeb") Authentification student, ModelMap model) {
 		
 		try {
-			ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+			
 			UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
 			String isValidUser = userJDBCTemplate.identificationParent(student.getEmail(), student.getPassword());
 			if (isValidUser != null) {
@@ -73,7 +73,6 @@ public class MainController {
 
 		// creation area en local
 		Integer id_user = 1;
-		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		NotificationJDBCTemplate notificationJDBCTemplate = (NotificationJDBCTemplate) context
 				.getBean("notificationJDBCTemplate");
 
