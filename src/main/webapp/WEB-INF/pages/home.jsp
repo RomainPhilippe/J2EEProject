@@ -36,22 +36,13 @@
 				 
 				<form:form class="form-signin" method="post" action="authentification">
 
-					<table>
-					    <tr>
-					        <td><form:label path="email">email</form:label></td>
-					        <td><form:input path="email" /></td>
-					    </tr>
-					    <tr>
-					        <td><form:label path="password">password</form:label></td>
-					        <td><form:input path="password" /></td>
-					    </tr>
-					    <tr>
-					        <td colspan="2">
-					            <input type="submit" value="Submit"/>
-					        </td>
-					    </tr>
-					</table> 
-										<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	in</button>
+					<form:label class="sr-only" path="email">email</form:label>
+					<form:input type="email" class="form-control" path="email" />
+
+					<form:label class="sr-only" path="password">password</form:label> </br>
+					<form:input type="password" class="form-control" path="password" /></br></br>
+					
+					<input class="btn btn-lg btn-primary btn-block" type="submit" value ="Sign in"/>
 
 				</form:form>
 			

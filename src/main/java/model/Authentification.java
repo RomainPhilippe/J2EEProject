@@ -4,7 +4,6 @@ public class Authentification {
 	private String password;
 	private String email;
 	
-	
 	public String getPassword() {
 		return password;
 	}
