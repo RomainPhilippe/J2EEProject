@@ -31,8 +31,7 @@ import model.User;
 
 //controler principal
 @Controller
-@SessionAttributes("token")
-
+@SessionAttributes({"token","id_user"})
 public class MainController {
 	
 		List<Notification> listNotification=null;

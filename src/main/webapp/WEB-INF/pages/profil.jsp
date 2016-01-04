@@ -205,6 +205,8 @@
  $("#addarea").click(function() {
  	//console.log("add area");
  	console.log($('#rayon').val());
+ 	alert('id_user' +id_user);
+ 	alert('token' +modelAttributeValue);
  	$.ajax({
  	       url : 'createArea/'+id_user+'/'+markertest.getPosition().lat()+'/'+markertest.getPosition().lng()+'/'+$('#areaname').val()+'/'+$('#labelarea').val()+'/'+$('#rayon').val(),
  	       type : 'POST',
@@ -261,7 +263,7 @@
  	       encoding:"UTF-8",
  	       async: true,
  	       success : function(data){
- 	    	   alert("La zone a bien été supprimé");
+ 	    	  alert("La zone a bien été supprimé");
  	    	  window.location="profil";
  	       }
  	    });
