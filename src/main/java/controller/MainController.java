@@ -45,7 +45,6 @@ public class MainController {
 		public ModelAndView executeLogin()
 		{
 				System.out.println("home");
-				
 				return new ModelAndView("profil");
 		}
 		
@@ -63,7 +62,6 @@ public class MainController {
 			   System.out.println("age : "+student.getPassword());
 
 			   
-			   
 				try
 				{
 					ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
@@ -71,17 +69,16 @@ public class MainController {
 						User user = userJDBCTemplate.identificationParent2(student.getEmail(), student.getPassword());
 						if(user.getToken() != null)
 						{
-							List<Notification> list = getList();
+							//List<Notification> list = getList();
 								ModelAndView modelAndView = new ModelAndView("profil");
 								System.out.println("User Login Successful");
 								modelAndView.addObject("token", user.getToken());
 								modelAndView.addObject("id_user", user.getId_user());
-								modelAndView.addObject("listNotif", list);
+								//modelAndView.addObject("listNotif", list);
 								return modelAndView;
 						}else{
 							    return new ModelAndView("home", "command", new Authentification());
 						}
-
 				}
 				catch(Exception e)
 				{
@@ -95,28 +92,24 @@ public class MainController {
 		@RequestMapping(value = "/profil", method = RequestMethod.GET)
 			public ModelAndView profil() 
 			{
-				List<Notification> list = getList();
+				//List<Notification> list = getList();
 				//return back to profil.jsp
 				ModelAndView model = new ModelAndView("profil");
-				model.addObject("listNotif", list);
+				//model.addObject("listNotif", list);
 			
 				return model;
 			}
 
-		private List<Notification> getList() {
-
-			List<Notification> list = new ArrayList<Notification>();
-			
-			//creation area en local
-			Integer id_user=1;
-	    	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-			NotificationJDBCTemplate notificationJDBCTemplate = (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
-	    	
-			listNotification= notificationJDBCTemplate.listNotificationByIdUser(id_user);
-
-			return listNotification;
-
-		}
+//		private List<Notification> getList() {
+//
+//			List<Notification> list = new ArrayList<Notification>();
+//			//creation area en local
+//	    	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+//			NotificationJDBCTemplate notificationJDBCTemplate = (NotificationJDBCTemplate)context.getBean("notificationJDBCTemplate");
+//			listNotification= notificationJDBCTemplate.listNotificationByIdUser(id_user);
+//			return listNotification;
+//
+//		}
 		
 		
 	}

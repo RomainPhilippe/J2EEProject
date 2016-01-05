@@ -122,7 +122,7 @@
 			<caption>Notification</caption>
 			
 			<div class="table-responsive">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="table_notif">
 					<!-- En-tête du tableau -->
 					<thead>
 						<tr>
@@ -135,7 +135,7 @@
 					
 					<!-- corps du tableau -->
 					<tbody>
-						<c:if test="${not empty listNotif}">
+						<%-- <c:if test="${not empty listNotif}">
 							<c:forEach var="notif" items="${listNotif}">	
 								<tr>
 									<td class="danger">${notif.id_notification}</td>
@@ -151,7 +151,9 @@
 									</td>
 								</tr>
 							</c:forEach>
-						</c:if>
+						</c:if> --%>
+						
+						
 					</tbody>
 					
 				</table>
@@ -188,11 +190,12 @@
  	  });
    markertest.setVisible(false);
    getArea(map);
+   getNotification(map);
  }
 
 
 
- $( "#addmarker" ).click(function() {
+ $("#addmarker").click(function() {
  	console.log(markertest.getVisible());	
  	if(!markertest.getVisible()){
  		console.log("pas de marekre");
@@ -255,6 +258,37 @@
  	
  }
 
+ 
+
+ function getNotification(map){
+ 	
+ 	$.ajax({
+ 	       url : 'getNotifications/'+'${token}',
+ 	       type : 'POST',
+ 	       encoding:"UTF-8",
+ 	       async: true,
+ 	       success : function(data){
+ 	    	   //alert(data);
+ 	    	   //console.log(data['area'].length);
+ 	    	   var length=data['notification'].length;
+
+ 	    	   for (var i = 0; i < length; i++) {
+ 	    		  id_notification=data['notification'][i]['id_notification'];
+ 	    		   latitude=data['notification'][i]['latitude'];
+ 	    		   longitude=data['notification'][i]['longitude'];
+ 	    		  date=data['notification'][i]['date'];
+ 	    		 flag_processing=data['notification'][i]['flag_processing'];
+ 	    		 
+ 	    		   $('#table_notif tr:last').after('<tr><td>'+id_notification+'</td>'+'<td>'+latitude+longitude+'</td>'+'<td>'+date+'</td>'+'<td>'+date+'</td>'+'</tr>');
+ 	    	   }
+ 	    	   
+ 	    	   
+ 	       }
+ 	    });
+
+ 	
+ }
+ 
  function deleteArea(id){
  	
  	$.ajax({
