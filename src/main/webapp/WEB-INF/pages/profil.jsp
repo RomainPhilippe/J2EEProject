@@ -114,7 +114,7 @@
 
 		<div class="row">
 			<!-- notification -->
-			<section class="col-xs-12 col-sm-12 col-md-12">
+			<section class="col-xs-12 col-sm-12 col-md-11">
 			<caption>Notification</caption>
 
 			<div class="table-responsive">
@@ -128,9 +128,17 @@
 							<th>flag_notif</th>
 						</tr>
 					</thead>
+					<tbody>
+					</tbody>
 				</table>
 			</div>
 
+			</section>
+			
+			<section class="col-xs-2 col-sm-2 col-md-1">
+				<button type="button" class="btn btn-default btn-lg" id="refresh_notif">
+	  					<img src="./resources/img/refresh.png"/>
+				</button>
 			</section>
 		</div>
 
@@ -169,7 +177,7 @@
 		});
 		markertest.setVisible(false);
 		getArea(map);
-		getNotification(map);
+		getNotification();
 	}
 
 	$("#addmarker").click(function() {
@@ -185,8 +193,8 @@
 			function() {
 				//console.log("add area");
 				console.log($('#rayon').val());
-				alert('id_user' + id_user);
-				alert('token' + modelAttributeValue);
+				//alert('id_user' + id_user);
+				//alert('token' + modelAttributeValue);
 				$.ajax({
 					url : 'createArea/' + id_user + '/'
 							+ markertest.getPosition().lat() + '/'
@@ -249,10 +257,11 @@
 
 	}
 
-	function getNotification(map) {
+	function getNotification() {
 
-		$
-				.ajax({
+		//$("#table_notif tr").remove(); 
+		
+		$.ajax({
 					url : 'getNotifications/' + '${token}',
 					type : 'POST',
 					encoding : "UTF-8",
@@ -268,21 +277,30 @@
 							longitude = data['notification'][i]['longitude'];
 							date = data['notification'][i]['date'];
 							flag_processing = data['notification'][i]['flag_processing'];
-
+							if(flag_processing==0){
+								flag_processing="En cours...";
+								classBoostrap="danger";
+							}else{
+								flag_processing="Terminé";
+								classBoostrap="success";
+							}
 							$('#table_notif tr:last')
-									.after(
-											'<tr><td>' + id_notification
+									.after('<tr class="'+classBoostrap+'"><td>' + id_notification
 													+ '</td>' + '<td>'
-													+ latitude + longitude
-													+ '</td>' + '<td>' + date
-													+ '</td>' + '<td>' + date
-													+ '</td>' + '</tr>');
+													+ date + '</td>' + '<td>(' + latitude +' - '+ longitude 
+													+ ')</td>' + '<td>' + flag_processing + '</td>' + '</tr>');
 						}
 
 					}
 				});
 
 	}
+	
+	$("#refresh_notif").click(
+			function() {
+				$("#table_notif").find("tr:gt(0)").remove();
+				getNotification();
+			});
 
 	function deleteArea(id) {
 

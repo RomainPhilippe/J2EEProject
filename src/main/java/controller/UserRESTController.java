@@ -39,7 +39,7 @@ import javax.mail.internet.MimeMessage;
 public class UserRESTController {
 	private SecureRandom random = new SecureRandom();
 	private String USERNAME_MAIL = "romain.philippe78@gmail.com";
-	private String PASSWORD_MAIL = "";
+	private String PASSWORD_MAIL = "685932ro";
 
 	public String nextSessionId() {
 		return new BigInteger(100, random).toString(32);
