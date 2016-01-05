@@ -51,9 +51,7 @@ public class MainController {
 		@RequestMapping(value = "/student", method = RequestMethod.GET)
 		   public ModelAndView student() {
 		      return new ModelAndView("student", "command", new Authentification());
-		      //return "student";
-		   }
-		   
+		   }	   
 		   
 		   @RequestMapping(value = "/authentification", method = RequestMethod.POST)
 		   public ModelAndView addStudent(@ModelAttribute("SpringWeb")Authentification student, 
@@ -69,7 +67,6 @@ public class MainController {
 						User user = userJDBCTemplate.identificationParent2(student.getEmail(), student.getPassword());
 						if(user.getToken() != null)
 						{
-							//List<Notification> list = getList();
 								ModelAndView modelAndView = new ModelAndView("profil");
 								System.out.println("User Login Successful");
 								modelAndView.addObject("token", user.getToken());
