@@ -30,28 +30,33 @@
 		<h3>Garder un oeil sur la prunelle de vos yeux</h3>
 
 		<div class="container">
-			<div class="col-xs-5 col-md-4 col-sm-offset-4 col-xs-offset-3 col-md-offset-4">
-			
-			<h4>Please sign in</h4>
-				 
-				<form:form class="form-signin" method="post" action="authentification">
+			<div
+				class="col-xs-5 col-md-4 col-sm-offset-4 col-xs-offset-3 col-md-offset-4">
+
+				<h4>Please sign in</h4>
+
+				<form:form class="form-signin" method="post"
+					action="authentification">
 
 					<form:label class="sr-only" path="email">email</form:label>
 					<form:input type="email" class="form-control" path="email" />
 
-					<form:label class="sr-only" path="password">password</form:label> </br>
-					<form:input type="password" class="form-control" path="password" /></br></br>
-					
-					<input class="btn btn-lg btn-primary btn-block" type="submit" value ="Sign in"/>
-
+					<form:label class="sr-only" path="password">password</form:label>
+					</br>
+					<form:input type="password" class="form-control" path="password" />
+					</br>
+					<div>
+						<input class="btn btn-lg btn-primary btn-block" type="submit"
+							value="Sign in" />
+					</div>
 				</form:form>
-			
+
 			</div>
 		</div>
 	</div>
 
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> <script
+		src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
 

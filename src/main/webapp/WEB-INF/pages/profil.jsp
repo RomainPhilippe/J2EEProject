@@ -3,6 +3,8 @@
 <%@ page import="java.util.ArrayList,controller.MainController"%>
 <%@ page import="java.util.ArrayList,model.Notification"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -43,7 +45,10 @@
 		<h3>Gardez un oeil sur la prunelle de vos yeux</h3>
 		<h4>Numéro du token : ${token}</h4>
 
-		<button type="button" class="btn btn-danger">Déconnexion</button>
+		<form:form method="GET" action="redirect">
+			<input class="btn btn-danger" type="submit" value="Déconnexion" />
+		</form:form>
+
 	</div>
 	</header>
 
@@ -78,8 +83,7 @@
 
 					<button type="button" class="btn btn-primary" id="addmarker">Add
 						marker</button>
-					<br>
-					<br>
+					<br> <br>
 
 					<div class="form-group col-xs-4">
 						<label for="areaname" class="sr-only"></label> <input
@@ -133,6 +137,7 @@
 	</div>
 </body>
 </html>
+
 <script type="text/javascript">
 	var map;
 	var initialize;

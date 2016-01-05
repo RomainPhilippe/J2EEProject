@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import dao.UserJDBCTemplate;
 import model.Authentification;
@@ -40,12 +45,10 @@ public class MainController {
 			UserJDBCTemplate userJDBCTemplate = (UserJDBCTemplate) context.getBean("userJDBCTemplate");
 			User user = userJDBCTemplate.identificationParent2(use.getEmail(), use.getPassword());
 			if (user.getToken() != null) {
-				// List<Notification> list = getList();
 				ModelAndView modelAndView = new ModelAndView("profil");
 				System.out.println("User Login Successful");
 				modelAndView.addObject("token", user.getToken());
 				modelAndView.addObject("id_user", user.getId_user());
-				// modelAndView.addObject("listNotif", list);
 				return modelAndView;
 			} else {
 				return new ModelAndView("home", "command", new Authentification());
@@ -59,12 +62,16 @@ public class MainController {
 
 	@RequestMapping(value = "/profil", method = RequestMethod.GET)
 	public ModelAndView profil() {
-		// List<Notification> list = getList();
-		// return back to profil.jsp
 		ModelAndView model = new ModelAndView("profil");
-		// model.addObject("listNotif", list);
 
 		return model;
+	}
+
+	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
+	public ModelAndView redirect(WebRequest request, HttpSession session, SessionStatus status) {
+		status.setComplete();
+		request.removeAttribute("token", WebRequest.SCOPE_SESSION);
+		return new ModelAndView("home", "command", new Authentification());
 	}
 
 }
